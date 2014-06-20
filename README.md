@@ -59,7 +59,6 @@ This dataset is then processed using melt to retrieve data corresponding to the 
 
 Finally, the result is cast to a dataset that depicts the mean and standard deviation data for each Activity Label per Subject.
 
-
 This dataset satisfies all the components of the problem statement.
 
 The program prints the resultant tidy data set on console as it finishes the execution.
