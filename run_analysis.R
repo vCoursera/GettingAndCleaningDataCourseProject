@@ -6,7 +6,9 @@
 	## Extract required columns (mean and std cols) and add correct labels   
 	## Substitute Activity Id with Activity Name                             
 	## Consolidate subject, Activity and Training Statistics Data            
-	## Merge the Test and Training Data and print the tidy data to console
+	## Merge the Test and Training Data 
+	## melt and cast the data to create final tidy dataset 
+	## print the tidy data to console
 ##
 
 run_analysis <- function() {
@@ -161,9 +163,13 @@ cleanTest$SubjectID <- rAwTestData$subject_id
 
 tidyData <- merge(cleanTrain,cleanTest,all=TRUE)
 
-## Write the Tidy Data Set to a File , Commented for now
-##write.csv(tidyData, file = "tidyData.csv")
+moltenTidyData <- melt(tidyData, id.vars = c("SubjectID", "Activity"))
 
-tidyData
+wideTidyData <- dcast(data = moltenTidyData, SubjectID + Activity ~ variable, fun = mean)
+
+## Write the Tidy Data Set to a File , Commented for now
+##write.csv(wideTidyData, file = "tidyData.csv")
+
+wideTidyData
 
 }
