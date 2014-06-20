@@ -61,23 +61,23 @@ filteredFeatures <- filteredFeatures[order(filteredFeatures$id),]
 
 ## Using the function names from features data frame , clean the data from raw training dataset 
 
-names <- vector()
-cnames <- vector()
+colNames <- vector()
+colLabels <- vector()
 for(i in filteredFeatures$id){
-names[length(names)+1] <- gsub(" ","",paste("rAwTrainData$",paste("V",i)))
+colNames[length(colNames)+1] <- gsub(" ","",paste("rAwTrainData$",paste("V",i)))
 filter <- filteredFeatures[which(filteredFeatures$id == i),]
-cnames[length(cnames)+1] <- as.character(filter$FeatureFunction)
+colLabels[length(colLabels)+1] <- as.character(filter$FeatureFunction)
 }
 cleanTrain <- data.frame(matrix(nrow=nrow(rAwTrainData), ncol=nrow(filteredFeatures)))
 
 ## Add the functions as the column names to the tidy training data
 
-colnames(cleanTrain) <- cnames
+colnames(cleanTrain) <- colLabels
 
 ## Populate the data to the tidy dataset
 
 for(j in 1:length(cleanTrain)){
-cleanTrain[j] <- eval(parse(text=names[j]))
+cleanTrain[j] <- eval(parse(text=colNames[j]))
 }
 
 
@@ -121,23 +121,23 @@ rAwTestData <- cbind(subject_test,y_test,X_test)
 
 ## Using the function names from features data frame , clean the data from raw test dataset 
 
-names <- vector()
-cnames <- vector()
+colNames <- vector()
+colLabels <- vector()
 for(i in filteredFeatures$id){
-names[length(names)+1] <- gsub(" ","",paste("rAwTestData$",paste("V",i)))
+colNames[length(colNames)+1] <- gsub(" ","",paste("rAwTestData$",paste("V",i)))
 filter <- filteredFeatures[which(filteredFeatures$id == i),]
-cnames[length(cnames)+1] <- as.character(filter$FeatureFunction)
+colLabels[length(colLabels)+1] <- as.character(filter$FeatureFunction)
 }
 cleanTest <- data.frame(matrix(nrow=nrow(rAwTestData), ncol=nrow(filteredFeatures)))
 
 ## Add the functions as the column names to the tidy training data
 
-colnames(cleanTest) <- cnames
+colnames(cleanTest) <- colLabels
 
 ## Populate the data to the tidy dataset
 
 for(j in 1:length(cleanTest)){
-cleanTest[j] <- eval(parse(text=names[j]))
+cleanTest[j] <- eval(parse(text=colNames[j]))
 }
 cleanTest <- cbind(Activity=0,cleanTest)
 
@@ -159,7 +159,7 @@ cleanTest <- cbind(SubjectID=0,cleanTest)
 
 cleanTest$SubjectID <- rAwTestData$subject_id
 
-## Merge the tidy datasets from training and test sources and generate a consolidated tidy dataset for the problem solution
+## Merge the tidy datasets from training and test sources and generate a consolidated tidy dataset 
 
 tidyData <- merge(cleanTrain,cleanTest,all=TRUE)
 
