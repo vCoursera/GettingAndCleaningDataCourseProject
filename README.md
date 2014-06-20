@@ -53,6 +53,13 @@ The subject data too is added as a column to the tidy data for training and the 
 
 Similar process is followed for the test data.
 
-The two tidy data sets are then merged to form a unified tidy set which satisfies all the components of the problem statement.
+The two tidy data sets are then merged to form a unified tidy set.
 
-The program prints the tidy data set on console as it finishes the execution.
+This dataset is then processed using melt to retrieve data corresponding to the 2 variables of SubjectId and Activity.
+
+Finally, the result is cast to a dataset that depicts the mean and standard deviation data for each Activity Label per Subject.
+
+
+This dataset satisfies all the components of the problem statement.
+
+The program prints the resultant tidy data set on console as it finishes the execution.
